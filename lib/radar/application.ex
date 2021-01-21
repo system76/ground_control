@@ -1,0 +1,34 @@
+defmodule Radar.Application do
+  # See https://hexdocs.pm/elixir/Application.html
+  # for more information on OTP Applications
+  @moduledoc false
+
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      # Start the Ecto repository
+      Radar.Repo,
+      # Start the Telemetry supervisor
+      RadarWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Radar.PubSub},
+      # Start the Endpoint (http/https)
+      RadarWeb.Endpoint
+      # Start a worker by calling: Radar.Worker.start_link(arg)
+      # {Radar.Worker, arg}
+    ]
+
+    # See https://hexdocs.pm/elixir/Supervisor.html
+    # for other strategies and supported options
+    opts = [strategy: :one_for_one, name: Radar.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+
+  # Tell Phoenix to update the endpoint configuration
+  # whenever the application is updated.
+  def config_change(changed, _new, removed) do
+    RadarWeb.Endpoint.config_change(changed, removed)
+    :ok
+  end
+end
