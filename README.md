@@ -1,4 +1,4 @@
-# Radar
+# GroundControl
 
 To start your Phoenix server:
 

@@ -1,6 +1,6 @@
-defmodule Radar do
+defmodule GroundControl do
   @moduledoc """
-  Radar keeps the contexts that define your domain
+  GroundControl keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

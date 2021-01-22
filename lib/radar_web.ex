@@ -1,12 +1,12 @@
-defmodule RadarWeb do
+defmodule GroundControlWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use RadarWeb, :controller
-      use RadarWeb, :view
+      use GroundControlWeb, :controller
+      use GroundControlWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule RadarWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: RadarWeb
+      use Phoenix.Controller, namespace: GroundControlWeb
 
       import Plug.Conn
-      import RadarWeb.Gettext
-      alias RadarWeb.Router.Helpers, as: Routes
+      import GroundControlWeb.Gettext
+      alias GroundControlWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/radar_web/templates",
-        namespace: RadarWeb
+        root: "lib/ground_control_web/templates",
+        namespace: GroundControlWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule RadarWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {RadarWeb.LayoutView, "live.html"}
+        layout: {GroundControlWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -72,7 +72,7 @@ defmodule RadarWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import RadarWeb.Gettext
+      import GroundControlWeb.Gettext
     end
   end
 
@@ -87,9 +87,9 @@ defmodule RadarWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import RadarWeb.ErrorHelpers
-      import RadarWeb.Gettext
-      alias RadarWeb.Router.Helpers, as: Routes
+      import GroundControlWeb.ErrorHelpers
+      import GroundControlWeb.Gettext
+      alias GroundControlWeb.Router.Helpers, as: Routes
     end
   end
 

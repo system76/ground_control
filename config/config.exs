@@ -8,11 +8,11 @@
 use Mix.Config
 
 # Configures the endpoint
-config :radar, RadarWeb.Endpoint,
+config :ground_control, GroundControlWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "EIAye2ATKMv8hAy/fVOshtoOcrlfpZrXZE/DVBzsQ+XU3u+dmkH7vOdXhKJPSADE",
-  render_errors: [view: RadarWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Radar.PubSub,
+  render_errors: [view: GroundControlWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: GroundControl.PubSub,
   live_view: [signing_salt: "3VFwAomF"]
 
 # Configures Elixir's Logger
@@ -23,7 +23,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :radar,
+config :ground_control,
+  github_secret: "",
+  environments: [],
   watching: []
 
 # Import environment specific config. This must remain at the bottom
