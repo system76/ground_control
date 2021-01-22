@@ -1,8 +1,8 @@
-defmodule RadarWeb.PageLive do
-  use RadarWeb, :live_view
+defmodule GroundControlWeb.PageLive do
+  use GroundControlWeb, :live_view
 
-  alias Radar.Repository
-  alias RadarWeb.Endpoint
+  alias GroundControl.Repository
+  alias GroundControlWeb.Endpoint
 
   @impl true
   def mount(_params, _session, socket) do
@@ -10,6 +10,7 @@ defmodule RadarWeb.PageLive do
     {:ok, assign(socket, repositories: repositories())}
   end
 
+  @impl true
   def handle_info(%{event: "status_change", payload: payload}, socket) do
     repositories =
       socket.assigns
@@ -26,7 +27,7 @@ defmodule RadarWeb.PageLive do
   end
 
   defp repositories do
-    for name <- Application.get_env(:radar, :watching) do
+    for name <- Application.get_env(:ground_control, :watching) do
       [owner, name] = String.split(name, "/", trim: true)
       %Repository{owner: owner, name: name, status: "success"}
     end

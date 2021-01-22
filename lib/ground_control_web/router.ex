@@ -1,11 +1,11 @@
-defmodule RadarWeb.Router do
-  use RadarWeb, :router
+defmodule GroundControlWeb.Router do
+  use GroundControlWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {RadarWeb.LayoutView, :root}
+    plug :put_root_layout, {GroundControlWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -14,15 +14,19 @@ defmodule RadarWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", RadarWeb do
+  scope "/", GroundControlWeb do
     pipe_through :browser
 
     live "/", PageLive, :index
-    get "/:owner/:name/:status", WebhookController, :create
+  end
+
+  scope "/", GroundControlWeb do
+    pipe_through :api
+    post "/webhook", WebhookController, :create
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", RadarWeb do
+  # scope "/api", GroundControlWeb do
   #   pipe_through :api
   # end
 
@@ -38,7 +42,7 @@ defmodule RadarWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: RadarWeb.Telemetry
+      live_dashboard "/dashboard", metrics: GroundControlWeb.Telemetry
     end
   end
 end

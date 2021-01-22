@@ -1,3 +1,3 @@
-defmodule Radar.Repository do
+defmodule GroundControl.Repository do
   defstruct [:owner, :name, :status]
 end

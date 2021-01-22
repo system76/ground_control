@@ -1,16 +1,16 @@
-defmodule RadarWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :radar
+defmodule GroundControlWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :ground_control
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_radar_key",
+    key: "_ground_control_key",
     signing_salt: "gXesDpO8"
   ]
 
-  socket "/socket", RadarWeb.UserSocket,
+  socket "/socket", GroundControlWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -22,7 +22,7 @@ defmodule RadarWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :radar,
+    from: :ground_control,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -32,7 +32,7 @@ defmodule RadarWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :radar
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :ground_control
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -45,10 +45,11 @@ defmodule RadarWeb.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
+    body_reader: {GroundControlWeb.CacheBodyReader, :read_body, []},
     json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug RadarWeb.Router
+  plug GroundControlWeb.Router
 end

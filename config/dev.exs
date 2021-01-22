@@ -1,21 +1,12 @@
 use Mix.Config
 
-# Configure your database
-config :radar, Radar.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "radar_dev",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :radar, RadarWeb.Endpoint,
+config :ground_control, GroundControlWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -55,13 +46,13 @@ config :radar, RadarWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :radar, RadarWeb.Endpoint,
+config :ground_control, GroundControlWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/radar_web/(live|views)/.*(ex)$",
-      ~r"lib/radar_web/templates/.*(eex)$"
+      ~r"lib/ground_control_web/(live|views)/.*(ex)$",
+      ~r"lib/ground_control_web/templates/.*(eex)$"
     ]
   ]
 

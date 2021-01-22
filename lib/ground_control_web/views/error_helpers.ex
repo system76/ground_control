@@ -1,4 +1,4 @@
-defmodule RadarWeb.ErrorHelpers do
+defmodule GroundControlWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -39,9 +39,9 @@ defmodule RadarWeb.ErrorHelpers do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(RadarWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(GroundControlWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(RadarWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(GroundControlWeb.Gettext, "errors", msg, opts)
     end
   end
 end

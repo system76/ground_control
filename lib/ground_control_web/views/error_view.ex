@@ -1,5 +1,5 @@
-defmodule RadarWeb.ErrorView do
-  use RadarWeb, :view
+defmodule GroundControlWeb.ErrorView do
+  use GroundControlWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
