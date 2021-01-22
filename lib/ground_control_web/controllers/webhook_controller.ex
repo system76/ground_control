@@ -8,19 +8,9 @@ defmodule GroundControlWeb.WebhookController do
   plug :verify_signature
 
   def create(conn, params) do
-    handle_event(params)
+    Events.handle_event(params)
 
-    send_resp(conn, 200, Jason.encode!(%{msg: "Thanks"}))
-  end
-
-  defp handle_event(%{"check_run" => check_run, "repository" => repository}) do
-    Logger.info("Handling webhook")
-    Events.handle_event(check_run, repository)
-  end
-
-  defp handle_event(_) do
-    Logger.debug("Ignored webhook")
-    :ignored
+    send_resp(conn, 200, Jason.encode!(%{msg: "thanks"}))
   end
 
   defp compute_signature(%{private: %{raw_body: body}}) do
