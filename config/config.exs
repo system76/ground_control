@@ -7,9 +7,6 @@
 # General application configuration
 use Mix.Config
 
-config :radar,
-  ecto_repos: [Radar.Repo]
-
 # Configures the endpoint
 config :radar, RadarWeb.Endpoint,
   url: [host: "localhost"],
@@ -25,6 +22,9 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :radar,
+  watching: []
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

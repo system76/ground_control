@@ -1,39 +1,34 @@
 defmodule RadarWeb.PageLive do
   use RadarWeb, :live_view
 
+  alias Radar.Repository
+  alias RadarWeb.Endpoint
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, query: "", results: %{})}
+    Endpoint.subscribe("repository_events")
+    {:ok, assign(socket, repositories: repositories())}
   end
 
-  @impl true
-  def handle_event("suggest", %{"q" => query}, socket) do
-    {:noreply, assign(socket, results: search(query), query: query)}
+  def handle_info(%{event: "status_change", payload: payload}, socket) do
+    repositories =
+      socket.assigns
+      |> Map.get(:repositories)
+      |> Enum.map(fn el ->
+        if(el.name == payload.name && el.owner == payload.owner) do
+          payload
+        else
+          el
+        end
+      end)
+
+    {:noreply, assign(socket, repositories: repositories)}
   end
 
-  @impl true
-  def handle_event("search", %{"q" => query}, socket) do
-    case search(query) do
-      %{^query => vsn} ->
-        {:noreply, redirect(socket, external: "https://hexdocs.pm/#{query}/#{vsn}")}
-
-      _ ->
-        {:noreply,
-         socket
-         |> put_flash(:error, "No dependencies found matching \"#{query}\"")
-         |> assign(results: %{}, query: query)}
+  defp repositories do
+    for name <- Application.get_env(:radar, :watching) do
+      [owner, name] = String.split(name, "/", trim: true)
+      %Repository{owner: owner, name: name, status: "success"}
     end
-  end
-
-  defp search(query) do
-    if not RadarWeb.Endpoint.config(:code_reloader) do
-      raise "action disabled when not in development"
-    end
-
-    for {app, desc, vsn} <- Application.started_applications(),
-        app = to_string(app),
-        String.starts_with?(app, query) and not List.starts_with?(desc, ~c"ERTS"),
-        into: %{},
-        do: {app, vsn}
   end
 end

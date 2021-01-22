@@ -7,8 +7,6 @@ defmodule Radar.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      Radar.Repo,
       # Start the Telemetry supervisor
       RadarWeb.Telemetry,
       # Start the PubSub system
