@@ -1,16 +1,25 @@
 defmodule GroundControl.Events do
+  require Logger
+
   alias GroundControl.Repository
   alias GroundControlWeb.Endpoint
 
-  def handle_event(check_run, repository) do
-    %{"name" => _check_name, "conclusion" => conclusion} = check_run
-    %{"name" => repo_name, "owner" => %{"login" => owner}} = repository
+  def handle_event(params) do
+    with %{
+           "workflow" => %{"name" => "Deploy " <> env},
+           "workflow_run" => %{"conclusion" => conclusion},
+           "repository" => %{"name" => repo_name, "owner" => %{"login" => owner}}
+         } <- params do
+      Logger.info("Handling #{env} Deploy event")
 
-    Endpoint.broadcast!("repository_events", "status_change", %Repository{
-      owner: owner,
-      name: repo_name,
-      status: determine_status(conclusion)
-    })
+      repo = %Repository{
+        owner: owner,
+        name: repo_name,
+        status: determine_status(conclusion)
+      }
+
+      Endpoint.broadcast!("repository_events", "status_change", {env, repo})
+    end
   end
 
   defp determine_status(nil), do: "running"
