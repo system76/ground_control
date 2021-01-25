@@ -1,3 +1,3 @@
 defmodule GroundControl.Repository do
-  defstruct [:owner, :name, :status]
+  defstruct [:owner, :name, :sha, :status]
 end
