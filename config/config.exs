@@ -25,8 +25,21 @@ config :phoenix, :json_library, Jason
 
 config :ground_control,
   github_secret: "",
-  environments: [],
-  watching: []
+  environments: ["Production", "Staging"],
+  watching: [
+    "system76/artoo",
+    "system76/assembly",
+    "system76/bullhorn",
+    "system76/ground_control",
+    "system76/help_desk",
+    "system76/lcars",
+    "system76/loss_prevention",
+    "system76/piggybank",
+    "system76/recognizer",
+    "system76/samwise",
+    "system76/warehouse",
+    "system76/zendesk_app"
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,42 +1,16 @@
 <section class="text-gray-600 body-font">
+  <div class="flex flex-row">
   <%= for {env, repositories} <- @environments do %>
-
-    <div class="container px-5 py-10 mx-auto">
+    <div class="w-1/2 flex-auto">
       <div class="text-center mb-10">
         <h1 class="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mb-4"><%= env %></h1>
       </div>
       <div class="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
         <%= for repo <- repositories do %>
-          <div class="p-2 sm:w-1/2 w-full">
-            <div class="bg-gray-100 rounded flex p-4 h-full items-center">
-              <%= case repo.status do %>
-                <% "running" -> %>
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="deploying text-grey-500 w-8 h-8 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-
-                <% "success" -> %>
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="text-green-500 w-8 h-8 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-
-                <% "failure" -> %>
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="text-red-500 w-8 h-8 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-
-                <% _ -> %>
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="text-yellow-500 w-8 h-8 flex-shrink-0 mr-4" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-
-                <% end %>
-                <span class="title-font font-medium"><%= repo.name %></span>
-            </div>
-          </div>
+          <%= live_component @socket, GroundControlWeb.RepositoryComponent, repo: repo %>
         <% end %>
       </div>
     </div>
   <% end %>
+  </div>
 </section>
-
