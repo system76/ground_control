@@ -20,6 +20,8 @@ config :ground_control, GroundControlWeb.Endpoint,
     transport_options: [socket_opts: [:inet6]]
   ],
   secret_key_base: secret_key_base,
-  live_view: [signing_salt: live_view_salt]
+  live_view: [signing_salt: live_view_salt],
+  url: [scheme: "https", host: "ground-control-to-major-tom.herokuapp.com"],
+  server: true
 
 config :ground_control, github_secret: System.get_env("GITHUB_SECRET")

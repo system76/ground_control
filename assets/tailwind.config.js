@@ -1,19 +1,13 @@
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   purge: [
-    '../lib/**/*.ex',
-    '../lib/**/*.leex',
-    '../lib/**/*.eex',
+    '../lib/ground_control_web/**/*.ex',
+    '../lib/ground_control_web/**/*.leex',
+    '../lib/ground_control_web/**/*.eex',
     './js/**/*.js'
   ],
   darkMode: false, // or 'media' or 'class'
-    theme: {
+  theme: {
     extend: {
-      colors: {
-        'light-blue': colors.lightBlue,
-        cyan: colors.cyan,
-      },
     },
   },
   variants: {
