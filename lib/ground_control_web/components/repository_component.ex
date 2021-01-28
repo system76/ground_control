@@ -7,7 +7,7 @@ defmodule GroundControlWeb.RepositoryComponent do
     <div class="p-2 xl:w-1/2 w-full">
       <div class="p-4 bg-gray-100 rounded h-full items-center flex flex-auto flex-row items-center">
         <div class="flex-initial">
-          <%= case @repo.status do %>
+          <%= case @repo["status"] do %>
             <% "running" -> %>
               <svg class="animate-spin text-yellow-500 w-8 h-8 flex-shrink-0 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -27,11 +27,9 @@ defmodule GroundControlWeb.RepositoryComponent do
           <% end %>
         </div>
         <div class="flex flex-auto flex-row justify-between items-center content-center">
+          <span class="text-2xl title-font font-medium"><%= @repo["name"] %></span>
 
-            <span class="text-2xl title-font font-medium"><%= @repo.name %></span>
-
-            <span class="text-gray-300 title-font lowercase font-medium"><%= @repo.sha %></span>
-
+          <span class="text-gray-300 title-font lowercase font-medium"><%= @repo["sha"] %></span>
         </div>
       </div>
     </div>

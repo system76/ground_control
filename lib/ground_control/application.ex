@@ -7,6 +7,7 @@ defmodule GroundControl.Application do
 
   def start(_type, _args) do
     children = [
+      {Redix, redix_config()},
       # Start the Telemetry supervisor
       GroundControlWeb.Telemetry,
       # Start the PubSub system
@@ -20,7 +21,12 @@ defmodule GroundControl.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: GroundControl.Supervisor]
-    Supervisor.start_link(children, opts)
+
+    with {:ok, pid} <- Supervisor.start_link(children, opts) do
+      GroundControl.Cache.preload()
+
+      {:ok, pid}
+    end
   end
 
   # Tell Phoenix to update the endpoint configuration
@@ -29,4 +35,6 @@ defmodule GroundControl.Application do
     GroundControlWeb.Endpoint.config_change(changed, removed)
     :ok
   end
+
+  defp redix_config, do: Application.get_env(:ground_control, :redix)
 end

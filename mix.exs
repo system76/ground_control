@@ -32,6 +32,7 @@ defmodule GroundControl.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:redix, ">= 0.0.0"},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_live_view, "~> 0.13.0"},
       {:floki, ">= 0.0.0", only: :test},

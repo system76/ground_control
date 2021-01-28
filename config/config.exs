@@ -24,6 +24,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :ground_control,
+  redix: [name: :cache],
   github_secret: "",
   environments: ["Production", "Staging"],
   watching: [

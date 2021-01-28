@@ -1,8 +1,7 @@
 defmodule GroundControl.Events do
   require Logger
 
-  alias GroundControl.Repository
-  alias GroundControlWeb.Endpoint
+  alias GroundControl.Cache
 
   def handle_event(params) do
     with %{
@@ -12,14 +11,14 @@ defmodule GroundControl.Events do
          } <- params do
       Logger.info("Handling #{env} Deploy event")
 
-      repo = %Repository{
+      repo = %{
         owner: owner,
         name: repo_name,
         sha: String.slice(head_sha, 0..7),
         status: determine_status(conclusion)
       }
 
-      Endpoint.broadcast!("repository_events", "status_change", {env, repo})
+      Cache.put(env, repo)
     end
   end
 

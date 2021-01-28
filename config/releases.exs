@@ -24,4 +24,6 @@ config :ground_control, GroundControlWeb.Endpoint,
   url: [scheme: "https", host: "ground-control-to-major-tom.herokuapp.com"],
   server: true
 
-config :ground_control, github_secret: System.get_env("GITHUB_SECRET")
+config :ground_control,
+  redix: {System.get_env("REDIS_URL"), [name: :cache]},
+  github_secret: System.get_env("GITHUB_SECRET")

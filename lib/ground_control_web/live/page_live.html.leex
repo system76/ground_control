@@ -6,7 +6,7 @@
         <h1 class="sm:text-3xl text-2xl font-medium text-center title-font text-gray-900 mt-4"><%= env %></h1>
       </div>
       <div class="flex flex-wrap lg:w-4/5 xl:w-11/12 sm:mx-auto sm:mb-2">
-        <%= for repo <- repositories do %>
+        <%= for {_slug, repo} <- repositories do %>
           <%= live_component @socket, GroundControlWeb.RepositoryComponent, repo: repo %>
         <% end %>
       </div>
