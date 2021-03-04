@@ -3,12 +3,15 @@ defmodule GroundControl.Events do
 
   alias GroundControl.Cache
 
+  @watching Application.get_env(:ground_control, :watching)
+
   def handle_event(params) do
     with %{
            "workflow" => %{"name" => "Deploy " <> env},
            "workflow_run" => %{"conclusion" => conclusion, "head_sha" => head_sha},
            "repository" => %{"name" => repo_name, "owner" => %{"login" => owner}}
-         } <- params do
+         } <- params,
+         true <- watching?(owner, repo_name) do
       Logger.info("Handling #{env} Deploy event")
 
       repo = %{
@@ -21,6 +24,8 @@ defmodule GroundControl.Events do
       Cache.put(env, repo)
     end
   end
+
+  defp watching?(owner, repo), do: "#{owner}/#{repo}" in @watching
 
   defp determine_status(nil), do: "running"
   defp determine_status(status), do: status
