@@ -29,7 +29,7 @@ defmodule GroundControlWeb.RepositoryComponent do
         <div class="flex flex-auto flex-row justify-between items-center content-center">
           <span class="text-2xl title-font font-medium"><%= @repo["name"] %></span>
 
-          <span class="text-gray-300 title-font lowercase font-medium"><%= @repo["sha"] %></span>
+          <a href="https://github.com/<%= @repo["owner"] %>/<%= @repo["name"] %>/commit/<%= @repo["sha"] %>" target="_blank" class="text-gray-300 title-font lowercase font-medium"><%= @repo["sha"] %></a>
         </div>
       </div>
     </div>
